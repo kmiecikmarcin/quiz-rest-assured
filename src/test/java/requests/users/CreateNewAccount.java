@@ -10,20 +10,17 @@ import models.User;
 import static io.restassured.RestAssured.given;
 
 public class CreateNewAccount {
-    public static User user;
     public static Gson gson = new Gson();
 
-    public static Response createNewAccount(RequestSpecification requestSpec, RestAssuredConfig config, String registerUrl) {
-        user = new User(null, null, null , null,true);
-        user.createNewUserAccount(user);
-        String userData = gson.toJson(user);
+    public static Response createNewAccount(RequestSpecification requestSpec, RestAssuredConfig config, String registerUrl, User userdata) {
+        String requestData = gson.toJson(userdata);
 
         var response = given()
                 .spec(requestSpec)
                 .config(config)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .body(userData)
+                .body(requestData)
                 .when()
                 .post(registerUrl);
 
