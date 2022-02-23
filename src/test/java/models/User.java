@@ -30,7 +30,7 @@ public class User {
         if(userPassword == null) user.userPassword = "userPassword@";
         if(confirmPassword == null) user.confirmPassword = "userPassword@";
         if(userGender == null) user.userGender = "Kobieta";
-        if(userVerification == null) user.userVerification = true;
+        if(userVerification == null) user.userVerification = false;
 
         user = new User(userEmail, userPassword, confirmPassword, userGender, userVerification);
 
