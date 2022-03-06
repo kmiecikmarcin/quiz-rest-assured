@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static requests.users.CreateNewAccount.createNewAccount;
 import static requests.users.DeactivateAccount.deactivateAccount;
 import static requests.users.LoginIntoAccount.loginIntoAccount;
+import static requests.users.LoginIntoAccount.loginIntoAccountWithIncorrectData;
 
 public class LoginIntoAccount {
     private static RequestSpecification requestSpec;
@@ -61,5 +62,74 @@ public class LoginIntoAccount {
                 .statusCode(200)
                 .assertThat()
                 .body("message", equalTo("Konto zostało dezaktywowane!"));
+    }
+
+    @Test
+    public void TestTryToLoginWithoutRegistration() {
+        user = new User(null, null, null , null,true);
+        user.createNewUserAccount(user);
+
+        Response loginIntoAccountResponse = loginIntoAccountWithIncorrectData(requestSpec, config, loginUrl, user.userEmail, user.userPassword, "withoutRegistration");
+        loginIntoAccountResponse.then()
+                .assertThat()
+                .statusCode(400)
+                .assertThat()
+                .body("error", equalTo("Wprowadzony email nie istnieje!"));
+    }
+
+    @Test
+    public void TestTryToLoginWithoutEmail() {
+        user = new User(null, null, null , null,true);
+        user.createNewUserAccount(user);
+
+        Response loginIntoAccountResponse = loginIntoAccountWithIncorrectData(requestSpec, config, loginUrl,
+                user.userEmail, user.userPassword, "withoutEmail");
+        loginIntoAccountResponse.then()
+                .assertThat()
+                .statusCode(400)
+                .assertThat()
+                .body("validationError[0].userEmail", equalTo("Brak wymaganych danych!"));
+    }
+
+    @Test
+    public void TestTryToLoginWithoutPassword() {
+        user = new User(null, null, null , null,true);
+        user.createNewUserAccount(user);
+
+        Response loginIntoAccountResponse = loginIntoAccountWithIncorrectData(requestSpec, config, loginUrl,
+                user.userEmail, user.userPassword, "withoutPassword");
+        loginIntoAccountResponse.then()
+                .assertThat()
+                .statusCode(400)
+                .assertThat()
+                .body("validationError[0].userPassword", equalTo("Brak wymaganych danych!"));
+    }
+
+    @Test
+    public void TestLoginWithEmptyEmail() {
+        user = new User(null, null, null , null,true);
+        user.createNewUserAccount(user);
+
+        Response loginIntoAccountResponse = loginIntoAccountWithIncorrectData(requestSpec, config, loginUrl,
+                user.userEmail, user.userPassword, "emptyEmail");
+        loginIntoAccountResponse.then()
+                .assertThat()
+                .statusCode(400)
+                .assertThat()
+                .body("validationError[0].userEmail", equalTo("Adres e-mail został wprowadzony niepoprawnie!"));
+    }
+
+    @Test
+    public void TestLoginWithEmptyPassword() {
+        user = new User(null, null, null , null,true);
+        user.createNewUserAccount(user);
+
+        Response loginIntoAccountResponse = loginIntoAccountWithIncorrectData(requestSpec, config, loginUrl,
+                user.userEmail, user.userPassword, "emptyPassword");
+        loginIntoAccountResponse.then()
+                .assertThat()
+                .statusCode(400)
+                .assertThat()
+                .body("validationError[0].userPassword", equalTo("Hasło jest za krótkie!"));
     }
 }

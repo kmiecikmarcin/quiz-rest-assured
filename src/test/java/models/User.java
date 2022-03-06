@@ -10,7 +10,7 @@ public class User {
     public String userGender;
     public Boolean userVerification;
 
-    public User(String userEmail, String userPassword, String confirmPassword, String userGender, Boolean userVerification){
+    public User(String userEmail, String userPassword, String confirmPassword, String userGender, Boolean userVerification) {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.confirmPassword = confirmPassword;
@@ -18,14 +18,14 @@ public class User {
         this.userVerification = userVerification;
     }
 
-    public String createUserEmail(){
+    public String createUserEmail() {
         Random rand = new Random();
         int randomNumber = rand.nextInt(1000000);
         String randomUserEmail = "qa_test_email_" + randomNumber + "@example.com";
         return randomUserEmail;
     }
 
-    public User createNewUserAccount(User user){
+    public User createNewUserAccount(User user) {
         if(userEmail == null) user.userEmail = createUserEmail();
         if(userPassword == null) user.userPassword = "userPassword@";
         if(confirmPassword == null) user.confirmPassword = "userPassword@";

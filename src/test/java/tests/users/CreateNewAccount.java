@@ -68,7 +68,8 @@ public class CreateNewAccount {
         user = new User(null, null, null , null,true);
         user.createNewUserAccount(user);
 
-        Response tryToCreateAccountResponse = createNewAccountWithoutUserEmail(requestSpec, config, registerUrl, user);
+        Response tryToCreateAccountResponse = createNewAccountWithoutRequiredData(requestSpec, config, registerUrl, user,
+                "withoutEmail");
 
         tryToCreateAccountResponse.then()
                 .assertThat()
@@ -82,7 +83,8 @@ public class CreateNewAccount {
         user = new User(null, null, null , null,true);
         user.createNewUserAccount(user);
 
-        Response tryToCreateAccountResponse = createNewAccountWithoutUserPassword(requestSpec, config, registerUrl, user);
+        Response tryToCreateAccountResponse = createNewAccountWithoutRequiredData(requestSpec, config, registerUrl, user,
+                "withoutPassword");
 
         tryToCreateAccountResponse.then()
                 .assertThat()
@@ -96,7 +98,8 @@ public class CreateNewAccount {
         user = new User(null, null, null , null,true);
         user.createNewUserAccount(user);
 
-        Response tryToCreateAccountResponse = createNewAccountWithoutConfirmPassword(requestSpec, config, registerUrl, user);
+        Response tryToCreateAccountResponse = createNewAccountWithoutRequiredData(requestSpec, config, registerUrl,
+                user, "withoutConfirmPassword");
 
         tryToCreateAccountResponse.then()
                 .assertThat()
@@ -110,7 +113,8 @@ public class CreateNewAccount {
         user = new User(null, null, null , null,true);
         user.createNewUserAccount(user);
 
-        Response tryToCreateAccountResponse = createNewAccountWithoutUserGender(requestSpec, config, registerUrl, user);
+        Response tryToCreateAccountResponse = createNewAccountWithoutRequiredData(requestSpec, config, registerUrl,
+                user, "withoutGender");
 
         tryToCreateAccountResponse.then()
                 .assertThat()
@@ -124,7 +128,8 @@ public class CreateNewAccount {
         user = new User(null, null, null , null,true);
         user.createNewUserAccount(user);
 
-        Response tryToCreateAccountResponse = createNewAccountWithoutUserVerification(requestSpec, config, registerUrl, user);
+        Response tryToCreateAccountResponse = createNewAccountWithoutRequiredData(requestSpec, config, registerUrl,
+                user, "withoutVerification");
 
         tryToCreateAccountResponse.then()
                 .assertThat()
@@ -138,7 +143,8 @@ public class CreateNewAccount {
         user = new User("", null, null , null,true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithEmptyData(requestSpec, config, registerUrl, user,
+                "emptyEmail");
 
         createAccountResponse.then()
                 .assertThat()
@@ -152,7 +158,8 @@ public class CreateNewAccount {
         user = new User(null, "", null , null,true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithEmptyData(requestSpec, config, registerUrl, user,
+                "emptyPassword");
 
         createAccountResponse.then()
                 .assertThat()
@@ -168,7 +175,8 @@ public class CreateNewAccount {
         user = new User(null, null, "" , null,true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithEmptyData(requestSpec, config, registerUrl, user,
+                "emptyConfirmPassword");
 
         createAccountResponse.then()
                 .assertThat()
@@ -182,7 +190,8 @@ public class CreateNewAccount {
         user = new User(null, null, null , "",true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithEmptyData(requestSpec, config, registerUrl, user,
+                "emptyGender");
 
         createAccountResponse.then()
                 .assertThat()
@@ -192,11 +201,12 @@ public class CreateNewAccount {
     }
 
     @Test
-    public void TestCreateNewAccountWithoutVerification() {
+    public void TestCreateNewAccountWithFalseVerification() {
         user = new User(null, null, null , null,null);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithEmptyData(requestSpec, config, registerUrl, user,
+                "falseVerification");
 
         createAccountResponse.then()
                 .assertThat()
@@ -210,7 +220,8 @@ public class CreateNewAccount {
         user = new User("incorrectEmail.com", null, null , null,true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithIncorrectData(requestSpec, config, registerUrl, user,
+                "incorrectEmail");
 
         createAccountResponse.then()
                 .assertThat()
@@ -224,7 +235,8 @@ public class CreateNewAccount {
         user = new User(null, "password", null , null,true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithIncorrectData(requestSpec, config, registerUrl, user,
+                "incorrectPassword");
 
         createAccountResponse.then()
                 .assertThat()
@@ -238,7 +250,8 @@ public class CreateNewAccount {
         user = new User(null, "passw", null , null,true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithIncorrectData(requestSpec, config, registerUrl, user,
+                "shortPassword");
 
         createAccountResponse.then()
                 .assertThat()
@@ -252,7 +265,8 @@ public class CreateNewAccount {
         user = new User(null, "hy5yBNLTUWDU4VpxBwSnCUYNxUEbLPgLe", null , null,true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithIncorrectData(requestSpec, config, registerUrl, user,
+                "longPassword");
 
         createAccountResponse.then()
                 .assertThat()
@@ -266,7 +280,8 @@ public class CreateNewAccount {
         user = new User(null, null, "differentPassword" , null,true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithIncorrectData(requestSpec, config, registerUrl, user,
+                "incorrectConfirmPassword");
 
         createAccountResponse.then()
                 .assertThat()
@@ -280,7 +295,8 @@ public class CreateNewAccount {
         user = new User(null, null, null , "incorrectGender",true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithIncorrectData(requestSpec, config, registerUrl, user,
+                "incorrectGender");
 
         createAccountResponse.then()
                 .assertThat()
@@ -294,7 +310,8 @@ public class CreateNewAccount {
         user = new User(null, null, null , "GL8NTHtvxBQ94IrSRrQV36uve7yx1axSB",true);
         user.createNewUserAccount(user);
 
-        Response createAccountResponse = createNewAccount(requestSpec, config, registerUrl, user);
+        Response createAccountResponse = createNewAccountWithIncorrectData(requestSpec, config, registerUrl, user,
+                "longGender");
 
         createAccountResponse.then()
                 .assertThat()
