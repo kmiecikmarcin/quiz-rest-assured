@@ -10,7 +10,8 @@ public class User {
     public String userGender;
     public Boolean userVerification;
 
-    public User(String userEmail, String userPassword, String confirmPassword, String userGender, Boolean userVerification) {
+    public User(String userEmail, String userPassword, String confirmPassword, String userGender,
+                Boolean userVerification) {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.confirmPassword = confirmPassword;
